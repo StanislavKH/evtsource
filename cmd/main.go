@@ -22,10 +22,14 @@ func main() {
 	err = a.Withdrawal(500)
 	onError(err)
 
-	fmt.Println(a.ID(), a.Owner(), a.Balance())
+	err = a.UpdateOwner("Wilma")
+	onError(err)
 
+	fmt.Printf("ID: %d, Owner: %s, Balance: %d\r\n", a.ID(), a.Owner(), a.Balance())
+
+	// Create new account from events list
 	b := account.NewFromEvents(a.EventsList())
-	fmt.Println(b.ID(), b.Owner(), b.Balance())
+	fmt.Printf("ID: %d, Owner: %s, Balance: %d\r\n", b.ID(), b.Owner(), b.Balance())
 }
 
 func onError(err error) {

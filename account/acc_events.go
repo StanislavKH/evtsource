@@ -18,11 +18,18 @@ type Event interface {
 }
 
 func (e AccountCreated) isEvent() {}
+func (e UpdateOwner) isEvent()    {}
 func (e Deposit) isEvent()        {}
 func (e Withdrawal) isEvent()     {}
 
 // AccountCreated -
 type AccountCreated struct {
+	ID    ID
+	Owner Owner
+}
+
+// UpdateOwner -
+type UpdateOwner struct {
 	ID    ID
 	Owner Owner
 }

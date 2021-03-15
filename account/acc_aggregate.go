@@ -44,6 +44,14 @@ func (a Account) Balance() Amount {
 	return a.balance
 }
 
+// UpdateOwner update owner.
+func (a *Account) UpdateOwner(owner Owner) error {
+	a.raise(&UpdateOwner{
+		Owner: owner,
+	})
+	return nil
+}
+
 // Deposit amount into Account balance
 func (a *Account) Deposit(amount Amount) error {
 	a.raise(&Deposit{
@@ -72,6 +80,8 @@ func (a *Account) On(event Event, new bool) {
 		a.id = e.ID
 		a.owner = e.Owner
 		a.balance = 0
+	case *UpdateOwner:
+		a.owner = e.Owner
 	case *Deposit:
 		a.balance += e.Amount
 	case *Withdrawal:
