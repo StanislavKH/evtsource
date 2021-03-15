@@ -3,12 +3,15 @@ package main
 import(
 	"fmt"
 	"github.com/StanislavKH/evtsource/account"
+	"github.com/StanislavKH/evtsource/storage"
 )
 
 func main() {
 	var err error
 
-	a := account.New(321, "Bob")
+	s := storage.New()
+	a, err := s.GetAccount(321, "Bob")
+	onError(err)
 
 	err = a.Deposit(100)
 	onError(err)
@@ -25,7 +28,11 @@ func main() {
 	err = a.UpdateOwner("Wilma")
 	onError(err)
 
+	s.SetAccount(a)
 	fmt.Printf("ID: %d, Owner: %s, Balance: %d\r\n", a.ID(), a.Owner(), a.Balance())
+
+	_, err = s.GetAccount(321, "Stan")
+	onError(err)
 
 	// Create new account from events list
 	b := account.NewFromEvents(a.EventsList())
