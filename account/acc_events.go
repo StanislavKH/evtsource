@@ -6,6 +6,7 @@ import(
 
 var(
 	ErrAmountNotAllowed = errors.New("Current amount not allowed to withdrawal due to account balance.")
+	ErrAmountDepositErr = errors.New("Deposit amount should be greater then zero.")
 )
 
 type ID int

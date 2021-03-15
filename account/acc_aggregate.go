@@ -54,6 +54,9 @@ func (a *Account) UpdateOwner(owner Owner) error {
 
 // Deposit amount into Account balance
 func (a *Account) Deposit(amount Amount) error {
+	if amount < 0 {
+		return ErrAmountDepositErr
+	}
 	a.raise(&Deposit{
 		ID:     a.id,
 		Amount: amount,
